@@ -1,4 +1,5 @@
-import { productValidation } from "../../../utils/products";
+import {Product} from "../../../interfaces/Product";
+import { createProductShape, getDecimalPrice, getFullPrice, productValidation } from "../../../utils/products";
 
 import { router, publicProcedure } from "../trpc";
 
@@ -6,14 +7,9 @@ export const productRouter = router({
   create: publicProcedure
     .input(productValidation().toCreate)
     .query(async ({ ctx, input }) => {
+      const product: Product = createProductShape(input);
       const productCreated = await ctx.prisma.product.create({
-        data: {
-          name: input.name,
-          slug: input.slug,
-          description: input.description,
-          inventory: input.inventory,
-          price: input.price,
-        },
+        data: getDecimalPrice(product),
       });
       return productCreated;
     }),
@@ -29,22 +25,18 @@ export const productRouter = router({
           id: input.id,
         },
       });
-      return data;
+      const product: Product = createProductShape(data);
+      return getFullPrice(product);
     }),
   editById: publicProcedure
     .input(productValidation().toUpdate)
     .query(async ({ ctx, input }) => {
+      const product: Product = createProductShape(input);
       const data = await ctx.prisma.product.update({
         where: {
           id: input.id,
         },
-        data: {
-          name: input.name,
-          slug: input.slug,
-          description: input.description,
-          inventory: input.inventory,
-          price: input.price,
-        },
+        data: getDecimalPrice(product),
       });
       return data;
     }),
