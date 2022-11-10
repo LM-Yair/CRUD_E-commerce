@@ -25,13 +25,16 @@ export const Form = ({ title, product, formAction }: FormProps) => {
   
   const submit = async (e: React.BaseSyntheticEvent) => {
     e.preventDefault();
-    const validationRes = validateProductShape(formData.product);
-    if(validationRes.success){
-      const product = await formAction(formData.product);
-      console.log(':)',{product});
-      returnToInicioPage();
+    try{
+      const validationRes = validateProductShape(formData.product);
+      if(validationRes.success){
+	const product = await formAction(formData.product);
+	console.log(':D',{product});
+	returnToInicioPage();
+      }
+    }catch(err){
+      console.warn('WARN: ',err);
     }
-      console.log(':( revisa tus datos');
   }
   return(
     <div className="w-full">
