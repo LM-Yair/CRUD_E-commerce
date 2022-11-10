@@ -22,6 +22,12 @@ export const getServerSideProps: GetServerSideProps<{id: Id}> = (context) => {
 const Producto = ({id}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter();
   const product = trpc.product.getById.useQuery({id});
+  const utils = trpc.useContext();
+  const deleteProduct = async (id: string) => {
+    const productDeleted = await utils.product.deleteById.fetch({id});
+    console.log(':(',{productDeleted});
+    router.push("/");
+  }
   const goToEditPage = (url: string) => router.push(url);
   return (
     <PageContainer title={`${product.data?.name ?? 'Product'}`}>
@@ -40,6 +46,7 @@ const Producto = ({id}: InferGetServerSidePropsType<typeof getServerSideProps>) 
 		price:product.data.price,
 	      }}
 	      edit={goToEditPage}
+	      deleteProduct={deleteProduct}
 	    />
 	  )
 	}

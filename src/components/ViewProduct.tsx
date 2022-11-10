@@ -5,12 +5,17 @@ type Edit = {
   (url:string):void;
 }
 
+type Delete = {
+  (id:string):void;
+}
+
 type ViewProductProps = {
   product:Product;
   edit: Edit;
+  deleteProduct: Delete;
 }
 
-export const ViewProduct = ({ product, edit }: ViewProductProps) => {
+export const ViewProduct = ({ product, edit, deleteProduct }: ViewProductProps) => {
   const {id, name, description,slug,inventory, price} = product;
   const URL_TO_EDIT = `/editar/${id}`;
   const addToCart = () => {
@@ -26,8 +31,11 @@ export const ViewProduct = ({ product, edit }: ViewProductProps) => {
       <p className="mb-2">{description}</p>
       <span className="block text-neutral-600">En existencia: {inventory}</span>
       <span className="block text-neutral-600">MXN {price}</span>
-      <Button text="Agregar al carrito" action={addToCart}/>
-      <Button text="Editar" action={() => edit(URL_TO_EDIT)}/>
+      <div className="flex flex-wrap gap-2">
+	<Button text="Agregar al carrito" action={addToCart}/>
+	<Button text="Editar" action={() => edit(URL_TO_EDIT)}/>
+        <Button text="ELIMINAR" action={() => deleteProduct(`${id}`)}/>
+      </div>
     </div>
   </>
   );
