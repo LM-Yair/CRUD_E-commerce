@@ -1,4 +1,4 @@
-import {Product} from "./Product";
+import {Product, ProductToEdit} from "./Product";
 
 export interface FormStatus {
   COMPLETE: boolean;
@@ -12,11 +12,11 @@ export interface FormState {
 }
 
 interface FormAction {
-  (product: Product): any;
+  (product: Product|ProductToEdit): any;
 }
 
 export interface FormProps {
   title: string;
-  product?: Product;
+  product?: ProductToEdit;
   formAction: FormAction;
 }

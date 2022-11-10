@@ -1,10 +1,10 @@
 import {FORM_STATE} from "../CONSTANTS/FORM_STATE";
 import {PRODUCT_INITIAL_DATA} from "../CONSTANTS/PRODUCT";
 import {FormState} from "../interfaces/Form";
-import {Product} from "../interfaces/Product";
+import {Product, ProductToEdit} from "../interfaces/Product";
 import {createSlug, validateProductShape} from "./products";
 
-export const inizializedFormData = ( title: string, product?: Product): FormState => {
+export const inizializedFormData = ( title: string, product?: ProductToEdit): FormState => {
   const inicialFormData: FormState = {
     title,
     product: product || PRODUCT_INITIAL_DATA,
@@ -18,6 +18,7 @@ export const updateFormData = (
   currentFormData: FormState
 ): FormState => {
   const newProductState: Product = {
+    id: productInCreation.id,
     name: productInCreation.name,
     slug: createSlug(productInCreation.name),
     description: productInCreation.description,
