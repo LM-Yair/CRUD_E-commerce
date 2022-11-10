@@ -20,7 +20,6 @@ const Home: NextPage = () => {
 		key={product.id}
 		id={product.id} 
 		name={product.name} 
-		slug={product.slug}
 		/>)
 	      )
 	    : (<span>Caragando...</span>)

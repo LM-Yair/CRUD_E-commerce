@@ -8,6 +8,11 @@ export interface Product {
   price: number;
 };
 
+export interface ProductCardProps {
+  id: string;
+  name: string;
+};
+
 export interface ProductToEdit {
   id: string;
   name: string;
