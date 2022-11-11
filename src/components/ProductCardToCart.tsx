@@ -1,18 +1,14 @@
 import {Button} from "./Button";
-import { trpc } from "../utils/trpc";
-import {ProductCardToCart_info} from "./ProductCardToCart_info";
 import {ProductAction} from "../hooks/useProductAction";
+import {ProductToCart} from "../interfaces/Product";
 
 type ViewProductProps = {
-  productId: string;
+  product: ProductToCart;
   removeProduct: ProductAction;
 }
 
-export const ProductCardToCart = ({ productId, removeProduct }: ViewProductProps) => {
-  const {data,error} = trpc.product.getToCartById.useQuery({id: productId});
-  if(!data)return <ProductCardToCart_info/>;
-  if(error)return <ProductCardToCart_info type="error"/>;
-  const {name,slug,inventory,price, id} = data;
+export const ProductCardToCart = ({ product, removeProduct }: ViewProductProps) => {
+  const {name,slug,inventory,price, id} = product;
   return(
   <>
     <div className="w-48 h-56 bg-neutral-400 rounded-xl"></div>
