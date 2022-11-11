@@ -11,7 +11,7 @@ export const Header = () => {
 	<Link href='/crear' className={linkClass}>
 	  Añadir
 	</Link>
-	<Link href='/' className={linkClass}>
+	<Link href='/carrito' className={linkClass}>
 	  Carrito
 	</Link>
       </nav>

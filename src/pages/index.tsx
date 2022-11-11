@@ -3,10 +3,12 @@ import React from "react";
 import {Header} from "../components/Header";
 import {PageContainer} from "../components/PageContainer";
 import { ProductCard } from "../components/ProductCard";
+import {useProductAction} from "../hooks/useProductAction";
 
 import { trpc } from "../utils/trpc";
 
 const Home: NextPage = () => {
+  const {addProductToCart} = useProductAction();
   const products = trpc.product.getAll.useQuery();
   return (
     <PageContainer title='Inicio'>
@@ -19,10 +21,11 @@ const Home: NextPage = () => {
 	      <ProductCard 
 		key={product.id}
 		id={product.id} 
-		name={product.name} 
-		/>)
-	      )
-	    : (<span>Caragando...</span>)
+		name={product.name}
+		addToCart={addProductToCart}
+	      />)
+	    )
+	  : (<span>Caragando...</span>)
 	  
 	}
 	</section>

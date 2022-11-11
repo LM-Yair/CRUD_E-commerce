@@ -1,3 +1,4 @@
+import {ProductAction} from "../hooks/useProductAction";
 import {Product} from "../interfaces/Product";
 import {Button} from "./Button";
 
@@ -5,22 +6,16 @@ type Edit = {
   (url:string):void;
 }
 
-type Delete = {
-  (id:string):void;
-}
-
 type ViewProductProps = {
   product:Product;
   edit: Edit;
-  deleteProduct: Delete;
+  deleteProduct: ProductAction;
+  addToCart: ProductAction;
 }
 
-export const ViewProduct = ({ product, edit, deleteProduct }: ViewProductProps) => {
+export const ViewProduct = ({ product, edit, addToCart, deleteProduct }: ViewProductProps) => {
   const {id, name, description,slug,inventory, price} = product;
   const URL_TO_EDIT = `/editar/${id}`;
-  const addToCart = () => {
-    console.log('Se agregó al carrito :)');
-  }
   return(
   <>
     <div className="w-48 h-56 bg-neutral-400 rounded-xl"></div>
@@ -32,9 +27,16 @@ export const ViewProduct = ({ product, edit, deleteProduct }: ViewProductProps) 
       <span className="block text-neutral-600">En existencia: {inventory}</span>
       <span className="block text-neutral-600">MXN {price}</span>
       <div className="flex flex-wrap gap-2">
-	<Button text="Agregar al carrito" action={addToCart}/>
+	<Button text="Agregar al carrito" action={() => addToCart({
+	  productId:`${id}`,
+	  reportAction:true,
+	  redirectTo:'/carrito',
+	})}/>
 	<Button text="Editar" action={() => edit(URL_TO_EDIT)}/>
-        <Button text="ELIMINAR" action={() => deleteProduct(`${id}`)}/>
+        <Button text="ELIMINAR" action={() => deleteProduct({
+	  productId: `${id}`,
+	  redirectTo: '/',
+	})}/>
       </div>
     </div>
   </>
