@@ -28,6 +28,24 @@ export const productRouter = router({
       const product: Product = createProductShape(data);
       return getFullPrice(product);
     }),
+  getToCartById: publicProcedure
+    .input(productValidation().toGetById)
+    .query(async ({ ctx, input }) => {
+      const data = await ctx.prisma.product.findUnique({
+        where: {
+          id: input.id,
+        },
+	select: {
+	  id: true,
+	  name: true,
+	  slug: true,
+	  inventory: true,
+	  price: true,
+	}
+      });
+      const product: Product = createProductShape(data);
+      return getFullPrice(product);
+    }),
   editById: publicProcedure
     .input(productValidation().toUpdate)
     .query(async ({ ctx, input }) => {
