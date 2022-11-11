@@ -1,3 +1,4 @@
+import {ProductAction} from "../hooks/useProductAction";
 
 export interface Product {
   id?: string;
@@ -8,9 +9,23 @@ export interface Product {
   price: number;
 };
 
+export interface ProductCartRaw {
+  id: string;
+  productId: string;
+}
+
+export interface ProductToCart {
+  id?: string;
+  name: string;
+  slug: string;
+  inventory: number;
+  price: number;
+};
+
 export interface ProductCardProps {
   id: string;
   name: string;
+  addToCart: ProductAction;
 };
 
 export interface ProductToEdit {
