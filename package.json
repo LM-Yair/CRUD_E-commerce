@@ -6,8 +6,8 @@
     "build": "next build",
     "dev": "next dev",
     "postinstall": "prisma generate",
-    "dev:db": "prisma studio",
-    "db:push": "prisma db push",
+    "db:open": "prisma studio",
+    "db:create": "prisma db push",
     "lint": "next lint",
     "start": "next start"
   },
