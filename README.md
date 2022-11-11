@@ -53,6 +53,12 @@ Para comenzar ejecutaremos el comando:
 Este comando instalará los paquetes necesarios que necesita nuestra aplicación
 
 
+Ahora necesitaremos crear nuestro archivo .env de la siguiente manera:
+```bash
+  yarn run db:env
+```
+
+
 El siguiente comando que necesitamos es:
 ```bash
   yarn run postinstall
@@ -64,7 +70,7 @@ detectar el tipado durante el desarrollo.
 
 El ultimo comando será:
 ```bash
-  yarn run db:push
+  yarn run db:create
 ```
 Este comando hará un push de nuestro esquema de datos configurado previamente en **prisma/schema.prisma**
 hacia la base de datos y la creará en caso de que esta no exista.
@@ -75,3 +81,15 @@ Una vez hecho esto, si no ocurrió ningun error ya deberíamos poder ejecutar el
   yarn run dev
 ```
 Y podremos acceder a nuestro http://localhost:3000 para poder ver y usar nuestra la aplicación :D
+
+Además de eso, hayun comando más que podemos usar:
+```bash
+  yarn run db:open
+```
+Este comando nos levantará otro servidor en http://localhost:5555 donde podremos 
+ver la base de datos desplegada.
+
+Por el momento es todo, me gustaría mucho saber su opinion acerca de mi desempeño
+en esta practica.
+
+Saludos! 👋

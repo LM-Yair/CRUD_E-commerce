@@ -6,6 +6,7 @@
     "build": "next build",
     "dev": "next dev",
     "postinstall": "prisma generate",
+    "db:env": "echo \"DATABASE_URL=file:./db.sqlite\" > .env",
     "db:open": "prisma studio",
     "db:create": "prisma db push",
     "lint": "next lint",
