@@ -17,4 +17,12 @@ model Product {
   description	String
   inventory	Int
   price		Int	@default(0)
+  cart 		Cart?
 }
+
+model Cart {
+  id		String  @id @default(uuid())
+  product	Product  @relation(fields:[productId], references: [id] )
+  productId 	String 	 @unique
+}
+
