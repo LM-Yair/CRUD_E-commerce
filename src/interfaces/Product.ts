@@ -20,6 +20,7 @@ export interface ProductToCart {
   slug: string;
   inventory: number;
   price: number;
+  units?: number;
 };
 
 export interface ProductCardProps {
