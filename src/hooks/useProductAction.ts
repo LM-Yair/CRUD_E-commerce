@@ -87,7 +87,23 @@ export const useProductAction = () => {
     }
   };
 
+  const deleteAllCart: ProductAction = async ({
+    productId,
+    reportAction = true,
+    redirectTo,
+  }) => {
+    try {
+      const res = await utils.cart.removeAll.fetch();
+      reportAction &&
+        setActionExecuted({ productId, action: "remove All Cart", redirectTo });
+      return res;
+    } catch (err) {
+      console.warn("eliminar el carrito CATCH: ", { err });
+    }
+  };
+
   return {
+    deleteAllCart,
     actionExecuted,
     addProductToCart,
     deleteProductFromDB,
