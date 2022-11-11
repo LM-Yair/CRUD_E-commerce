@@ -20,6 +20,10 @@ export const cartRouter = router({
     const data: ProductCartRaw[] = await ctx.prisma.cart.findMany();
     return data;
   }),
+  removeAll: publicProcedure.query(async ({ ctx }) => {
+    const data = await ctx.prisma.cart.deleteMany();
+    return data;
+  }),
   removeById: publicProcedure
     .input(z.object({
       productId: z.string().cuid(),
