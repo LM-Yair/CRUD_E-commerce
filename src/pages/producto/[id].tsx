@@ -26,8 +26,9 @@ const Producto = ({id}: InferGetServerSidePropsType<typeof getServerSideProps>) 
   const product = trpc.product.getById.useQuery({id});
   const goToEditPage = (url: string) => router.push(url);
   return (
-    <PageContainer title={`${product.data?.name ?? 'Product'}`}>
+    <PageContainer title={`${product.data?.name ?? 'Producto'}`}>
       <Header />
+      <h2 className="text-center text-3xl py-6">{product.data?.name ?? 'Producto'}</h2>
       <main>
 	<section className='p-2 flex flex-wrap justify-center items-center gap-2'>
 	{

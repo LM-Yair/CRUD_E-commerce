@@ -15,6 +15,7 @@ const Carrito: NextPage = () => {
   return (
     <PageContainer title="Inicio">
       <Header />
+      <h2 className="text-center text-3xl py-6">Carrito</h2>
       <main className="relative">
         <section className="flex h-full flex-col items-center justify-center gap-2 p-2">
           {cartUtils.cartList.length ? (

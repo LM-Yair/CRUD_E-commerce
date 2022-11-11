@@ -13,6 +13,7 @@ const Home: NextPage = () => {
   return (
     <PageContainer title='Inicio'>
       <Header />
+      <h2 className="text-center text-3xl py-6">Inicio</h2>
       <main>
 	<section className='p-2 flex flex-wrap justify-center items-center gap-2'>
 	{
