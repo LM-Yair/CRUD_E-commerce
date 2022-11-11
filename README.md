@@ -38,3 +38,40 @@ crear, editar, eliminar y añadir a un carrito.
 
 > Carrito
  - Este deberá incluir todos los productos añadidos al carrito junto con la cantidad de cada producto en pesos
+
+
+---
+
+## Iniciar el proyecto
+
+En el archivo package.json ya están configurados los comandos para iniciar el proyecto.
+
+Para comenzar ejecutaremos el comando:
+```bash
+  yarn install
+```
+Este comando instalará los paquetes necesarios que necesita nuestra aplicación
+
+
+El siguiente comando que necesitamos es:
+```bash
+  yarn run postinstall
+```
+Este inicializará los archivos para el Prisma Client, nos generará el modelo de 
+datos que definimos previamente en el archivo **prisma/schema.prisma** y poder
+detectar el tipado durante el desarrollo.
+
+
+El ultimo comando será:
+```bash
+  yarn run db:push
+```
+Este comando hará un push de nuestro esquema de datos configurado previamente en **prisma/schema.prisma**
+hacia la base de datos y la creará en caso de que esta no exista.
+
+
+Una vez hecho esto, si no ocurrió ningun error ya deberíamos poder ejecutar el comando:
+```bash
+  yarn run dev
+```
+Y podremos acceder a nuestro http://localhost:3000 para poder ver y usar nuestra la aplicación :D
