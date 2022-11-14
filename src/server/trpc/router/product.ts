@@ -1,71 +1,30 @@
-import {Product} from "../../../interfaces/Product";
-import { createProductShape, getDecimalPrice, getFullPrice, productValidation } from "../../../utils/products";
-
 import { router, publicProcedure } from "../trpc";
+
+import {
+  productCreate, 
+  productDeleteById, 
+  productEditById, 
+  productGetAll, 
+  productGetById, 
+  productGetToCartById
+} from "../services/product";
+import {validationScheme} from "../../../utils/validations";
 
 export const productRouter = router({
   create: publicProcedure
-    .input(productValidation().toCreate)
-    .query(async ({ ctx, input }) => {
-      const product: Product = createProductShape(input);
-      const productCreated = await ctx.prisma.product.create({
-        data: getDecimalPrice(product),
-      });
-      return productCreated;
-    }),
-  getAll: publicProcedure.query(async ({ ctx }) => {
-    const data = await ctx.prisma.product.findMany();
-    return data;
-  }),
+    .input(validationScheme().product().create)
+    .query(productCreate),
+  getAll: publicProcedure.query(productGetAll),
   getById: publicProcedure
-    .input(productValidation().toGetById)
-    .query(async ({ ctx, input }) => {
-      const data = await ctx.prisma.product.findUnique({
-        where: {
-          id: input.id,
-        },
-      });
-      const product: Product = createProductShape(data);
-      return getFullPrice(product);
-    }),
+    .input(validationScheme().product().getById)
+    .query(productGetById),
   getToCartById: publicProcedure
-    .input(productValidation().toGetById)
-    .query(async ({ ctx, input }) => {
-      const data = await ctx.prisma.product.findUnique({
-        where: {
-          id: input.id,
-        },
-	select: {
-	  id: true,
-	  name: true,
-	  slug: true,
-	  inventory: true,
-	  price: true,
-	}
-      });
-      const product: Product = createProductShape(data);
-      return getFullPrice(product);
-    }),
+    .input(validationScheme().product().getById)
+    .query(productGetToCartById),
   editById: publicProcedure
-    .input(productValidation().toUpdate)
-    .query(async ({ ctx, input }) => {
-      const product: Product = createProductShape(input);
-      const data = await ctx.prisma.product.update({
-        where: {
-          id: input.id,
-        },
-        data: getDecimalPrice(product),
-      });
-      return data;
-    }),
+    .input(validationScheme().product().editById)
+    .query(productEditById),
   deleteById: publicProcedure
-    .input(productValidation().toDeleteById)
-    .query(async ({ ctx, input }) => {
-      const data = await ctx.prisma.product.delete({
-        where: {
-          id: input.id,
-        },
-      });
-      return data;
-    }),
+    .input(validationScheme().product().deleteById)
+    .query(productDeleteById),
 });
